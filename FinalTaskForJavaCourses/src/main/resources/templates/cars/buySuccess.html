@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/purchasing.css">
+    <title>Buy Success</title>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <a th:href="@{/car/all}" class="btn btn-secondary">Back to cars</a>
+        </ul>
+    </nav>
+</header>
+<h2>Purchasing information</h2>
+
+<div>
+    <h3>Person Information</h3>
+    <p><strong>Username:</strong> <span th:text="${person.username}"></span></p>
+    <p><strong>Full Name:</strong> <span th:text="${person.fullName}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${person.email}"></span></p>
+    <p><strong>Phone number:</strong> <span th:text="${person.phoneNumber}"></span></p>
+    <p><strong>Address:</strong> <span th:text="${person.address}"></span></p>
+
+</div>
+<form id="purchaseForm" th:action="@{/complete-purchase}" th:method="POST">
+    <input type="hidden" th:name="personId" th:value="${person.id}" />
+    <input type="hidden" th:name="fullName" th:value="${person.fullName}" />
+    <input type="hidden" th:name="address" th:value="${person.address}" />
+    <input type="hidden" th:name="userName" th:value="${person.username}" />
+    <input type="hidden" th:name="phoneNumber" th:value="${person.phoneNumber}" />
+
+    <th:block th:each="car : ${cars}">
+        <input type="hidden" th:name="cars" th:value="${car}" />
+    </th:block>
+
+    <button type="button" onclick="submitPurchaseForm()" >Complete Purchase</button>
+</form>
+
+<div th:each="car : ${cars}" class="car-container">
+    <div class="car-info">
+        <img th:src="${car.imagePath}" alt="Car Image" class="car-image">
+        <p><strong>Brand:</strong> <span th:text="${car.getBrand()}"></span></p>
+        <p><strong>Model:</strong> <span th:text="${car.getModel()}"></span></p>
+        <p><strong>Price:</strong> <span th:text="${car.getPrice()} + '$' "></span></p>
+        <p><strong>Year:</strong> <span th:text="${car.getYear()}"></span></p>
+        <p><strong>Tech condition:</strong> <span th:text="${car.getTechCondition()}"></span></p>
+        <p><strong>Tech Specification:</strong> <span th:text="${car.getTechSpecification()}"></span></p>
+        <form th:action="@{/car/remove}" th:method="POST">
+            <input type="hidden" th:name="carId" th:value="${car.id}" />
+            <button type="submit">Remove Car</button>
+        </form>
+    </div>
+    <script>
+        function submitPurchaseForm() {
+            var formData = new FormData(document.getElementById("purchaseForm"));
+            sendAjaxRequest(formData, "/complete-purchase");
+        }
+        function sendAjaxRequest(formData, url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+
+            if (formData && formData instanceof FormData) {
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            }
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log("Response Status:", xhr.status);
+                    console.log("Response Text:", xhr.responseText);
+
+                    window.location.reload();
+
+                    alert("The car has been successfully purchased");
+                }
+            };
+
+            xhr.send(formData || null);
+        }
+    </script>
+</body>
+</html>

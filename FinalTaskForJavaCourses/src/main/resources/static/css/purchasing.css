@@ -1,0 +1,82 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+h3 {
+    color: #555;
+}
+
+.car-container {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.car-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.car-image {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+span {
+    color: #007bff;
+}
+form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+header nav a.btn {
+    background-color: #1637ad;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Добавляем стили для кнопки Back to cars при наведении */
+header nav a.btn:hover {
+    background-color: #0056b3; /* Синий цвет, немного темнее при наведении */
+}

@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<form th:each="person : ${purchaseInfoList}">
+    <h3>ORDER</h3>
+    <p><strong>User ID:</strong> <span th:text="${person.id}"></span></p>
+    <p><strong>Username:</strong> <span th:text="${person.username}"></span></p>
+    <p><strong>Full Name:</strong> <span th:text="${person.fullName}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${person.email}"></span></p>
+    <p><strong>Phone number:</strong> <span th:text="${person.phoneNumber}"></span></p>
+    <p><strong>Address:</strong> <span th:text="${person.address}"></span></p>
+
+    <div th:each="car : ${person.cars} " class="car-container">
+        <p><strong>Car ID:</strong> <span th:text="${car.id}"></span></p>
+        <p><strong>Car Brand:</strong> <span th:text="${car.brand}"></span></p>
+        <p><strong>Car Model:</strong> <span th:text="${car.model}"></span></p>
+    </div>
+</form>
+</body>
+</html>
+
